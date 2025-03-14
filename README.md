@@ -45,9 +45,8 @@
 
 ---
 
-## 🔧 Installation & Usage  
-
-1️⃣ **Clone the repository:**  
-```bash
-git clone https://github.com/your-username/TravelWithUs.git
-cd TravelWithUs
+🎯 Future Enhancements 🚀
+1️⃣ Online Payment Integration – Enable Stripe/PayPal for bookings.
+2️⃣ User Dashboard – View past bookings & saved destinations.
+3️⃣ AI-Powered Recommendations – Personalized travel suggestions.
+4️⃣ Multi-language Support – Offer content in multiple languages.
