@@ -1,0 +1,598 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Packages - Travel With Us</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .hero {
+        height: 60vh;
+        background: url('{% static "images\D3.webp" %}') no-repeat center center/cover;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .package-section {
+        text-align: center;
+        padding: 50px;
+        background-color: #f4f4f4;
+      }
+      .package-section h2 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+      }
+      .package-section p {
+        font-size: 1.2em;
+        color: #666;
+        margin-bottom: 50px;
+      }
+      .package-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+      }
+      .package-box {
+        background-color: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        text-align: center;
+      }
+      .package-box img {
+        width: 100%;
+        height: 200px;
+        border-radius: 8px;
+      }
+      .package-box h3 {
+        font-size: 1.5em;
+        margin-top: 15px;
+      }
+      .package-box p {
+        color: #777;
+        font-size: 1em;
+        margin-top: 10px;
+      }
+      .modal {
+        display: none; 
+        position: fixed;
+        z-index: 1; 
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%; 
+        overflow: auto; 
+        background-color: rgba(0, 0, 0, 0.7); 
+    }
+    
+    .modal-content {
+        background-color: #ffffff; 
+        margin: 10% auto;
+        padding: 20px;
+        border-radius: 10px; 
+        border: 2px solid #4CAF50;
+        width: 500px; 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    }
+    
+    .close {
+        color: #ff4d4d;
+        float: right;
+        font-size: 24px; 
+        font-weight: bold;
+    }
+    
+    .close:hover,
+    .close:focus {
+        color: #d70000; 
+        text-decoration: none;
+        cursor: pointer;
+    }
+    
+    .modal h2 {
+        color: #4CAF50; 
+        text-align: center;
+    }
+    
+    .modal p {
+        margin: 10px 0; 
+    }
+    
+    .modal ul {
+        list-style-type: disc; 
+        padding-left: 20px; 
+    }
+    #welcome-text {
+      font-size: 1.2em; 
+      margin-left: 300px; 
+      padding-right: 20px; 
+      color: white; 
+    }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul class="nav-links">
+          <li>
+            <div class="logo">
+              <a href="#">TravelWithUs</a>
+            </div>
+          </li>
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'destinations' %}">Destinations</a></li>
+          <li><a href="{% url 'packages' %}">Packages</a></li>
+          <li><a href="{% url 'contact' %}">Contact</a></li>
+          <li><a href="#" id="logout-btn">Logout</a></li>
+          <li class="nav-item"  id="welcome-text"></li>
+          <script>
+            const firstName = "{{ request.session.first_name }}";
+            const lastName = "{{ request.session.last_name }}";
+            
+
+            localStorage.setItem("firstName", firstName);
+            localStorage.setItem("lastName", lastName);
+            
+            function displayWelcomeMessage() {
+              const welcomeTextElement = document.getElementById("welcome-text");
+            
+              if (firstName && lastName) {
+                welcomeTextElement.textContent = `Welcome, ${firstName} ${lastName}!`;
+              } else {
+                welcomeTextElement.textContent = "Welcome!";
+              }
+            }
+  
+            function logout() {
+     
+              localStorage.removeItem("firstName");
+              localStorage.removeItem("lastName");
+
+              document.getElementById("welcome-text").textContent = "";
+              alert("You have been logged out.");
+            }
+
+            window.onload = displayWelcomeMessage;
+   
+            document.getElementById("logout-btn").onclick = function(event) {
+              event.preventDefault(); 
+              logout();
+            };
+          </script>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Explore the World</h1>
+        <p>Your adventure begins here.</p>
+      </div>
+    </section>
+
+    
+    <section class="package-section">
+      <h2>Popular Travel Packages</h2>
+      <p>Book an exclusive package to breathtaking locations for your next adventure.</p>
+
+      <div class="package-container">
+        <div class="package-box">
+          <img src="{% static 'images/tropical.jpg' %}" alt="Tropical Gateway" />
+          <h3>Tropical Gateway</h3>
+          <p>Relax on stunning beaches with luxury accommodations.</p>
+          <button class="btn btn-info" id="moreDetailsBtn"  >More Details</button>
+          <button class="btn btn-success" id="bookNowBtn1">Book Now</button>
+      </div>
+        
+        <div id="bookNowModal" class="modal">
+          <div class="modal-content">
+              <span class="close">&times;</span>
+              <h2>Book Now!!</h2>
+              <form id="bookingForm" action="{% url 'book_now' %}" method="post">
+                {% csrf_token %}
+                  <div class="form-group">
+                      <label for="name">Name</label>
+                      <input type="text" name="name"id="name" class="form-control" placeholder="Enter your name" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="email">Email</label>
+                      <input type="email"  name="email" id="email" class="form-control" placeholder="Enter your email" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="date">Booking Date</label>
+                      <input type="date" name="booking_date" id="date" class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="guests">Number of Guests</label>
+                      <input type="number" name="guests" id="guests" class="form-control" min="1" required>
+                  </div>
+                  <input type="submit" value="Book Now">
+              </form>
+          </div>
+        </div>  
+        <div id="detailsModal" class="modal">
+          <div class="modal-content">
+              <span class="close">&times;</span>
+              <h2>Tropical Gateway Package Details</h2>
+              <p>Relax and unwind on stunning beaches with our exclusive package. Enjoy water sports, luxurious accommodations, and gourmet dining.</p>
+              <h6>Itinerary Highlights:</h6>
+              <ul>
+                  <li>Day 1: Arrival and Beach Relaxation</li>
+                  <li>Day 2: Snorkeling and Water Sports</li>
+                  <li>Day 3: Spa Day and Local Cuisine Tasting</li>
+                  <li>Day 4: Departure</li>
+              </ul>
+              <h6>Inclusions:</h6>
+              <ul>
+                  <li>Accommodation in a luxury resort</li>
+                  <li>All meals included</li>
+                  <li>Airport transfers</li>
+                  <li>Access to all resort amenities</li>
+              </ul>
+          </div>
+      </div>
+        <div class="package-box">
+          <img src="{% static 'images/mountain.jpg' %}" alt="Mountains" >
+          <h3>Mountain Adventure</h3>
+        <p>Experience breathtaking views and thrilling hikes.</p>
+        <button class="btn btn-info"  id="moreDetailsBtn2">More Details</button>
+        <button class="btn btn-success" id="bookNowBtn2">Book Now</button>
+        </div>
+        <div id="detailsModal2" class="modal">
+          <div class="modal-content">
+              <span class="close" >&times;</span>
+              <h2>Mountain Adventure Details</h2>
+              <p>Experience breathtaking views and thrilling hikes through the Swiss Alps. Our package includes guided tours and accommodation</p>
+              <h6>Itinerary Highlights:</h6>
+                    <ul>
+                        <li>Day 1: Arrival and Welcome Dinner</li>
+                        <li>Day 2: Guided Hiking Trip</li>
+                        <li>Day 3: Scenic Views and Photography</li>
+                        <li>Day 4: Departure</li>
+                    </ul>
+                    <h6>Inclusions:</h6>
+                    <ul>
+                        <li>Accommodation in mountain lodges</li>
+                        <li>Daily breakfast and lunch</li>
+                        <li>Guided tours</li>
+                        <li>Transportation during the trip</li>
+                    </ul>
+          </div>
+      </div>
+        <div class="package-box">
+          <img src="{% static 'images/african.jfif' %}" alt="African Safari" />
+          <h3>African Safari</h3>
+                    <p>Witness majestic wildlife on a thrilling safari adventure.</p>
+                    <button class="btn btn-info" id="moreDetailsBtn3">More Details</button>
+                    <button class="btn btn-success" id="bookNowBtn3">Book Now</button>
+        </div>
+        <div id="detailsModal3" class="modal">
+          <div class="modal-content">
+              <span class="close" >&times;</span>
+              <h2>African Safari Details</h2>
+              <p>Witness majestic wildlife on a thrilling safari adventure in Kenya. Enjoy guided game drives and luxury accommodations</p>
+              <h6>Itinerary Highlights:</h6>
+              <ul>
+                  <li>Day 1: Arrival and Welcome Dinner</li>
+                  <li>Day 2: Morning Game Drive</li>
+                  <li>Day 3: Cultural Experience with Local Tribes</li>
+                  <li>Day 4: Departure</li>
+              </ul>
+              <h6>Inclusions:</h6>
+              <ul>
+                  <li>Accommodation in safari lodges</li>
+                  <li>All meals included</li>
+                  <li>Game drives and park fees</li>
+                  <li>Airport transfers</li>
+              </ul>
+          </div>
+      </div>
+        <div class="package-box">
+          <img src="{% static 'images/cruise.jpg' %}" alt="Cruise" />
+          <h3>Luxury Cruise</h3>
+          <p>Enjoy a week of luxury cruising through the Caribbean.</p>
+          <button class="btn btn-info" id="moreDetailsBtn4">More Details</button>
+          <button class="btn btn-success" id="bookNowBtn4">Book Now</button>
+        </div>
+        <div id="detailsModal4" class="modal">
+          <div class="modal-content">
+              <span class="close" >&times;</span>
+              <h2>Luxury Cruise Details</h2>
+              <p>Enjoy a week of luxury cruising through the Caribbean with our exclusive package. Experience world-class dining and entertainment</p>
+              <h6>Itinerary Highlights:</h6>
+              <ul>
+                  <li>Day 1: Embark on the Cruise</li>
+                  <li>Day 2: Relax at Sea</li>
+                  <li>Day 3: Shore Excursions in Various Ports</li>
+                  <li>Day 4: Departure</li>
+              </ul>
+              <h6>Inclusions:</h6>
+              <ul>
+                  <li>Accommodation on the cruise ship</li>
+                  <li>All meals included</li>
+                  <li>Entertainment and activities on board</li>
+                  <li>Excursions at ports</li>
+              </ul>
+          </div>
+      </div>
+        <div class="package-box">
+          <img src="{% static 'images/sydney.jpg' %}" alt="Sydney, Australia" />
+          <h3>City Break</h3>
+          <p>Explore vibrant cities filled with culture and cuisine.</p>
+          <button class="btn btn-info" id="moreDetailsBtn5">More Details</button>
+          <button class="btn btn-success" id="bookNowBtn5">Book Now</button>
+        </div>
+        <div id="detailsModal5" class="modal">
+          <div class="modal-content">
+              <span class="close" >&times;</span>
+              <h2>City Break Details</h2>
+              <p>Explore vibrant cities filled with culture and cuisine with our exciting city break package. Enjoy guided tours and shopping</p>
+              <h6>Itinerary Highlights:</h6>
+              <ul>
+                  <li>Day 1: Arrival and City Tour</li>
+                  <li>Day 2: Museums and Cultural Visits</li>
+                  <li>Day 3: Shopping and Local Cuisine Experience</li>
+                  <li>Day 4: Departure</li>
+              </ul>
+              <h6>Inclusions:</h6>
+              <ul>
+                  <li>Accommodation in city hotels</li>
+                  <li>Daily breakfast</li>
+                  <li>Guided city tours</li>
+                  <li>Transportation during the trip</li>
+              </ul>
+          </div>
+      </div>
+        <div class="package-box">
+          <img src="{% static 'images/capetown.jfif' %}" alt="Europe" />
+          <h3>Historical Europe Tour</h3>
+                    <p>Discover the rich history and culture of Europe.</p>
+                    <button class="btn btn-info" id="moreDetailsBtn6">More Details</button>
+                    <button class="btn btn-success" id="bookNowBtn6">Book Now</button>
+
+        </div>
+        <div id="detailsModal6" class="modal">
+          <div class="modal-content">
+              <span class="close" >&times;</span>
+              <h2>Historical Europe Tour Details</h2>
+              <p>Discover the rich history and culture of Europe with our historical tour package. Enjoy guided visits to famous landmarks.</p>
+              <h6>Itinerary Highlights:</h6>
+                    <ul>
+                        <li>Day 1: Arrival and Historical Site Visit</li>
+                        <li>Day 2: Guided Tours of Major Landmarks</li>
+                        <li>Day 3: Cultural Experience and Culinary Tour</li>
+                        <li>Day 4: Departure</li>
+                    </ul>
+                    <h6>Inclusions:</h6>
+                    <ul>
+                        <li>Accommodation in historical hotels</li>
+                        <li>All meals included</li>
+                        <li>Entrance fees to historical sites</li>
+                        <li>Transportation during the tour</li>
+                    </ul>
+          </div>
+      </div>
+        <div class="package-box">
+          <img src="{% static 'images/rome.jpg' %}" alt="Asia" />
+          <h3>Adventure in Asia</h3>
+                    <p>Experience the diverse landscapes and cultures of Asia.</p>
+                    <button class="btn btn-info" id="moreDetailsBtn7">More Details</button>
+                    <button class="btn btn-success" id="bookNowBtn7">Book Now</button>
+        </div>
+        <div id="detailsModal7" class="modal">
+          <div class="modal-content">
+              <span class="close" >&times;</span>
+              <h2>Adventure in Asia Details</h2>
+              <p>Experience the diverse landscapes and cultures of Asia with our adventure package. Enjoy trekking, cultural activities, and local cuisine.</p>
+              <h6>Itinerary Highlights:</h6>
+              <ul>
+                  <li>Day 1: Arriva l and Orientation</li>
+                  <li>Day 2: Trekking and Cultural Exploration</li>
+                  <li>Day 3: Local Cuisine Tasting</li>
+                  <li>Day 4: Departure</li>
+              </ul>
+              <h6>Inclusions:</h6>
+              <ul>
+                  <li>Accommodation in local guesthouses</li>
+                  <li>All meals included</li>
+                  <li>Guided activities</li>
+                  <li>Transportation during the trip</li>
+              </ul>
+          </div>
+      </div>
+        <div class="package-box">
+          <img src="{% static 'images/desert1.jpg' %}" alt="desert" />
+          <h3>Desert Expedition</h3>
+                    <p>Explore the vast beauty of the desert with thrilling activities.</p>
+                    <button class="btn btn-info" id="moreDetailsBtn8">More Details</button>
+                    <button class="btn btn-success" id="bookNowBtn8">Book Now</button>
+        </div>
+        <div id="detailsModal8" class="modal">
+          <div class="modal-content">
+              <span class="close" >&times;</span>
+              <h2>Desert Expedition Details</h2>
+              <p>Explore the vast beauty of the desert with thrilling activities like camel riding and sandboarding. Our package includes accommodation and meals.</p>
+              <h6>Itinerary Highlights:</h6>
+                    <ul>
+                        <li>Day 1: Arrival and Desert Safari</li>
+                        <li>Day 2: Camel Riding and Sandboarding</li>
+                        <li>Day 3: Stargazing in the Desert</li>
+                        <li>Day 4: Departure</li>
+                    </ul>
+                    <h6>Inclusions:</h6>
+                    <ul>
+                        <li>Accommodation in desert camps</li>
+                        <li>All meals included</li>
+                        <li>Desert activities and guides</li>
+                        <li>Transportation during the trip</li>
+                    </ul>
+          </div>
+      </div>
+        <div class="package-box">
+          <img src="{% static 'images/queenstown.webp' %}" alt="south america" />
+          <h3>Cultural Journey in South America</h3>
+          <p>Immerse yourself in the vibrant cultures of South America.</p>
+          <button class="btn btn-info" id="moreDetailsBtn9">More Details</button>
+          <button class="btn btn-success" id="bookNowBtn9">Book Now</button>
+        </div>  
+        <div id="detailsModal9" class="modal">
+          <div class="modal-content">
+              <span class="close" >&times;</span>
+              <h2>Gastronomic Tour Details</h2>
+              <p>Indulge in a gastronomic adventure filled with cooking classes, market visits, and culinary tours. Savor the flavors of local cuisine.</p>
+              <h6>Itinerary Highlights:</h6>
+                    <ul>
+                        <li>Day 1: Arrival and Welcome Dinner</li>
+                        <li>Day 2: Cooking Classes and Market Visits</li>
+                        <li>Day 3: Food Tastings and Culinary Tours</li>
+                        <li>Day 4: Departure</li>
+                    </ul>
+                    <h6>Inclusions:</h6>
+                    <ul>
+                        <li>Accommodation in boutique hotels</li>
+                        <li>All meals included</li>
+                        <li>Cooking classes and culinary experiences</li>
+                        <li>Transportation during the trip</li>
+                    </ul>
+          </div>
+      </div>
+    </section>
+    
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-md-6">
+            <h4>About Us</h4>
+            <p>
+              TravelWithUs is dedicated to bringing you the best travel experiences from around the world. Join us and explore unique packages today!
+            </p>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="{% url 'home' %}">Home</a></li>
+              <li><a href="{% url 'destinations' %}">Destinations</a></li>
+              <li><a href="{% url 'packages' %}">Packages</a></li>
+              <li><a href="{% url 'contact' %}">Contact</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-4 col-md-12">
+            <h4>Follow Us</h4>
+            <ul class="social-icons">
+              <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+              <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+              <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 text-center">
+            <p>&copy; 2024 TravelWithUs. All Rights Reserved.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script>
+      function setupModal(buttonId, modalId) {
+        var modal = document.getElementById(modalId);
+        var btn = document.getElementById(buttonId);
+        var span = modal.getElementsByClassName("close")[0];
+
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    }
+
+ 
+    setupModal("moreDetailsBtn", "detailsModal");
+    setupModal("moreDetailsBtn2", "detailsModal2");
+    setupModal("moreDetailsBtn3", "detailsModal3");
+    setupModal("moreDetailsBtn4", "detailsModal4");
+    setupModal("moreDetailsBtn5", "detailsModal5");
+    setupModal("moreDetailsBtn6", "detailsModal6");
+    setupModal("moreDetailsBtn7", "detailsModal7");
+    setupModal("moreDetailsBtn8", "detailsModal8");
+    setupModal("moreDetailsBtn9", "detailsModal9");
+
+    function setupBookNowModal(buttonId, modalClass) {
+      var modal = document.getElementById(modalClass); 
+    var button = document.getElementById(buttonId); 
+    var span = modal.getElementsByClassName("close")[0];
+    button.onclick = function() {
+        modal.style.display = "block";
+    };
+
+   
+    span.onclick = function() {
+        modal.style.display = "none";
+    };
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none"; 
+        }
+    };
+  }
+
+  setupBookNowModal("bookNowBtn1", "bookNowModal");
+  setupBookNowModal("bookNowBtn2", "bookNowModal");
+  setupBookNowModal("bookNowBtn3", "bookNowModal");
+  setupBookNowModal("bookNowBtn4", "bookNowModal");
+  setupBookNowModal("bookNowBtn5", "bookNowModal");
+  setupBookNowModal("bookNowBtn6", "bookNowModal");
+  setupBookNowModal("bookNowBtn7", "bookNowModal");
+  setupBookNowModal("bookNowBtn8", "bookNowModal");
+  setupBookNowModal("bookNowBtn9", "bookNowModal");
+  document.getElementById("bookingForm").addEventListener("submit", function(e) {
+    e.preventDefault();  
+
+    var formData = new FormData(this);
+
+    fetch("{% url 'book_now' %}", {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': document.getElementsByName('csrfmiddlewaretoken')[0].value
+        }
+    }).then(response => response.json())
+      .then(data => {
+        if (data.success) {
+            alert("Booking successful!");
+        } else {
+            alert("Error: " + JSON.stringify(data.errors));
+        }
+    }).catch(error => console.error('Error:', error));
+});
+
+  </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

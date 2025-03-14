@@ -1,0 +1,123 @@
+{% load static %}
+<html>
+  <head>
+    <title>Signup Page</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: url('{% static "images/background.png" %}') no-repeat center
+          center/cover;
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      button {
+        background-color: #4caf50;
+        width: 25%;
+        padding: 15px;
+        color: black;
+        border: none;
+        float: center;
+        font-size: 15px;
+        cursor: pointer;
+      }
+      label {
+        font-size: 20px;
+        color: #333;
+      }
+      form {
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px); 
+      }
+      input[type="email"],
+      input[type="password"] {
+        width: 60%;
+        font-size: 15px;
+        margin: 8px 0px;
+        padding: 12px 20px;
+        display: inline-block;
+        border: 2px solid green;
+        box-sizing: border-box;
+        border-radius: 5px;
+      }
+      button:hover {
+        opacity: 0.8;
+      }
+      .container {
+        padding: 30px;
+        background-color: rgba(
+          255,
+          255,
+          255,
+          0.8
+        ); 
+        border-radius: 10px;
+      }
+
+      .imgcontainer {
+        text-align: center;
+        margin: 24px 0 12px 0;
+      }
+
+      img.avatar {
+        width: 100px;
+        border-radius: 50%;
+      }
+      .close-btn {
+        position: absolute; 
+        top: 10px;
+        right: 1px;
+        background-color: transparent;
+        border: none;
+        font-size: 30px;
+        color: black;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+  
+    <form action="#" method="post" class="box">
+      {% csrf_token %}
+      <button
+        class="close-btn"
+        onclick="window.location.href='{% url 'home' %}'"
+      >
+        &times;
+      </button>
+      <center>
+        <div class="container">
+          <div class="imgcontainer">
+            <img
+              src="{% static 'images/avatar1.jfif' %}"
+              alt="Avatar"
+              class="avatar"
+            />
+          </div>
+          <label for="email"><b>Email : </b></label>
+          <input
+            type="email"
+            placeholder="Enter email"
+            name="email"
+            float="right"
+            required
+          /><br />
+          <label for="password"><b>Password : </b></label>
+          <input
+            type="password"
+            placeholder="Enter Password"
+            name="password"
+            required
+          /><br />
+          <button type="submit"><b>Login</b></button><br />
+          Don't have accounct
+          <a href="http://localhost:8000/signup/"> register </a>
+        </div>
+      </center>
+    </form>
+  </body>
+</html>

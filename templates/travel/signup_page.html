@@ -1,0 +1,111 @@
+{%load static%}
+<html>
+    <head>
+        <title>Signup Page</title>
+        <style>
+            body{
+                font-family: Arial, Helvetica, sans-serif;
+                background: url('{% static "images/background.png" %}') no-repeat center
+                center/cover;
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                height:!00vh;
+                margin:0;
+            }
+            button{
+                background-color: #4CAF50;
+                width: 50%;
+                padding: 10px;
+                color: black;
+                border: none;
+                float: center;
+                font-size: 15px;
+                cursor:pointer;
+            }
+            button:hover{
+                opacity:0.8;
+            }
+            label{
+                font-size: 18px;
+                color:#333;
+            }
+            form{
+                border: 3px solid rgba(255, 255, 255, 0.3);
+                border-radius: 10px;
+                box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+                backdrop-filter: blur(10px); 
+            }
+            input[type=email],input[type=text]{
+                width: 80%;
+                font-size: 14px;
+                margin: 8px 0;
+                padding: 10px;
+                display: inline-block;
+                border: 2px solid #4CAF50;
+                border-radius: 5px;
+                box-sizing: border-box;
+            }
+            input[type=radio]{
+                height: 18px;
+                width: 18px;
+            }
+            button:hover{
+                opacity:0.7;
+
+            }
+            .container{
+                padding: 30px;
+                background-color: rgba(255, 255, 255, 0.8);
+                border-radius: 10px;
+            }
+            .imgcontainer {
+                text-align: center;
+                margin: 24px 0 12px 0;
+            }
+              
+            img.avatar {
+                width: 100px;
+                border-radius: 50%;
+            }  
+            .close-btn {
+                position: absolute; 
+                top: 10px; 
+                right: 1px; 
+                background-color: transparent;
+                border: none;
+                font-size: 30px;
+                color: black; 
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+ 
+        <form action="#" method="post">
+            {% csrf_token %}
+            {% load static %}
+            <button class="close-btn" onclick="window.location.href='{% url 'home' %}'">&times;</button>
+            <center><div class="container">
+                <div class="imgcontainer">
+                    <img src="{% static 'images/avatar1.jfif' %}" alt="Avatar" class="avatar">
+                </div>
+                <label for='first_name'><b>First Name : </b></label>
+		        <input type='text' placeholder="Enter your first name" name='first_name' required><br>
+		        <label for='last_name'><b>Last Name :</b></label>
+		        <input type='text' placeholder='Enter your last name' name='last_name' required><br>
+		        <label for='sex' ><b>Sex : </b></label>
+		        <input type='radio' name='sex' value='male' required>
+		        <label ><b>Male</b></label>
+		        <input type='radio' name='sex' value='female' required>
+		        <label ><b>Female</b></label><br>
+            	<label for ='email'><b>Email Id :  </b></label>
+            	<input type="email" placeholder="Enter email" name="email" float="right"  required><br>  
+            	<label for='password'><b>Password : </b></label>
+            	<input type="text" placeholder="Enter Password" name="password" required><br>  
+            	<button type="submit"><b>Signup</b></button><br>     
+            	Already an accounct <a href="http://localhost:8000/login/"> Login </a>
+            </div></center>
+        </form>
+    </body>
+</html>

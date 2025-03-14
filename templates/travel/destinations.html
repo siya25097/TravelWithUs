@@ -1,0 +1,265 @@
+  {% load static %}
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Our Destinations - Travel With Us</title>
+      <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      />
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      />
+      <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet"
+      />
+      <style>
+        .hero {
+          height: 60vh;
+          background: url('{% static "images\D1.webp" %}') no-repeat center center/cover;
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .destinations-section {
+          text-align: center;
+          padding: 50px;
+          background-color: #f4f4f4;
+        }
+        .destinations-section h2 {
+          font-size: 2.5em;
+          margin-bottom: 10px;
+        }
+        .destinations-section p {
+          font-size: 1.2em;
+          color: #666;
+          margin-bottom: 50px;
+        }
+        .destination-container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 30px;
+        }
+        .destination-box {
+          background-color: white;
+          border-radius: 8px;
+          padding: 20px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          width: 300px;
+          text-align: center;
+        }
+        .destination-box img {
+          width: 100%;
+          height: 200px;
+          border-radius: 8px;
+        }
+        .destination-box h3 {
+          font-size: 1.5em;
+          margin-top: 15px;
+        }
+        .destination-box p {
+          color: #777;
+          font-size: 1em;
+          margin-top: 10px;
+        }
+        #welcome-text {
+          font-size: 1.2em;
+          margin-left: 300px;
+          padding-right: 20px; 
+          color: white; 
+        }
+      </style>
+    </head>
+    <body>
+      <header>
+        <nav>
+          <ul class="nav-links">
+            <li>
+              <div class="logo">
+                <a href="#">TravelWithUs</a>
+              </div>
+            </li>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'destinations' %}">Destinations</a></li>
+            <li><a href="{% url 'packages' %}">Packages</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+            <li><a href="#" id="logout-btn">Logout</a></li>
+            <li class="nav-item"  id="welcome-text"></li>
+            <script>
+              const firstName = "{{ request.session.first_name }}";
+              const lastName = "{{ request.session.last_name }}";
+              
+            
+              localStorage.setItem("firstName", firstName);
+              localStorage.setItem("lastName", lastName);
+              
+              function displayWelcomeMessage() {
+                const welcomeTextElement = document.getElementById("welcome-text");
+              
+                if (firstName && lastName) {
+                  welcomeTextElement.textContent = `Welcome, ${firstName} ${lastName}!`;
+                } else {
+                  welcomeTextElement.textContent = "Welcome!";
+                }
+              }
+    
+              function logout() {
+            
+                localStorage.removeItem("firstName");
+                localStorage.removeItem("lastName");
+                document.getElementById("welcome-text").textContent = "";
+                alert("You have been logged out.");
+              }
+          
+              window.onload = displayWelcomeMessage;
+              document.getElementById("logout-btn").onclick = function(event) {
+                event.preventDefault();
+                logout();
+              };
+            </script>
+          </ul>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Explore Our Destinations</h1>
+          <p>Handpicked journeys to stunning places around the world.</p>
+        </div>
+      </section>
+
+      <section class="destinations-section">
+        <h2>Popular Travel Destinations</h2>
+        <p>Discover breathtaking locations for your next adventure.</p>
+
+        <div class="destination-container">
+          <div class="destination-box">
+            <img src="{% static 'images/paris.jpg' %}" alt="Paris, France" />
+            <h3>Paris, France</h3>
+            <p>
+              Enjoy the charm of the city of love, with its iconic landmarks and rich culture.
+            </p>
+          </div>
+
+          <div class="destination-box">
+            <img src="{% static 'images/bali.jpg' %}" alt="Bali, Indonesia" />
+            <h3>Bali, Indonesia</h3>
+            <p>
+              Relax in a tropical paradise filled with beautiful beaches and tranquil surroundings.
+            </p>
+          </div>
+
+          <div class="destination-box">
+            <img src="{% static 'images/newyork.jpg' %}" alt="New York, USA" />
+            <h3>New York, USA</h3>
+            <p>
+              Explore the vibrant energy of the Big Apple, with its skyscrapers and endless attractions.
+            </p>
+          </div>
+
+          <div class="destination-box">
+            <img src="{% static 'images/tokyo.jpg' %}" alt="Tokyo, Japan" />
+            <h3>Tokyo, Japan</h3>
+            <p>
+              Experience the blend of traditional culture and modern innovation in Japan's bustling capital.
+            </p>
+          </div>
+
+          <div class="destination-box">
+            <img src="{% static 'images/sydney.jpg' %}" alt="Sydney, Australia" />
+            <h3>Sydney, Australia</h3>
+            <p>
+              Discover Australia's vibrant coastal city, known for its stunning harbor and iconic landmarks.
+            </p>
+          </div>
+
+          <div class="destination-box">
+            <img src="{% static 'images/capetown.jfif' %}" alt="Cape Town, South Africa" />
+            <h3>Cape Town, South Africa</h3>
+            <p>
+              Enjoy breathtaking landscapes and beautiful beaches in one of Africa's top travel destinations.
+            </p>
+          </div>
+
+          <div class="destination-box">
+            <img src="{% static 'images/rome.jpg' %}" alt="Rome, Italy" />
+            <h3>Rome, Italy</h3>
+            <p>
+              Step back in time and explore the ruins of the Roman Empire while indulging in Italian cuisine.
+            </p>
+          </div>
+
+          <div class="destination-box">
+            <img src="{% static 'images/maldives.jfif' %}" alt="Maldives" />
+            <h3>Maldives</h3>
+            <p>
+              Dive into crystal-clear waters and relax on private islands in the Maldives.
+            </p>
+          </div>
+
+          <div class="destination-box">
+            <img src="{% static 'images/queenstown.webp' %}" alt="Queenstown, New Zealand" />
+            <h3>Queenstown, New Zealand</h3>
+            <p>
+              An adventure seeker's paradise with stunning landscapes and extreme sports.
+            </p>
+          </div>
+
+          <div class="destination-box">
+            <img src="{% static 'images/reykjavik.jpg' %}" alt="Reykjavik, Iceland" />
+            <h3>Reykjavik, Iceland</h3>
+            <p>
+              Witness the Northern Lights and explore the incredible natural wonders of Iceland.
+            </p>
+          </div>
+        </div>
+      </section>
+
+    
+      <footer>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-4 col-md-6">
+              <h4>About Us</h4>
+              <p>
+                TravelWithUs is dedicated to bringing you the best travel experiences from around the world. Join us and explore unique destinations today!
+              </p>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <h4>Quick Links</h4>
+              <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'destinations' %}">Destinations</a></li>
+                <li><a href="{% url 'packages' %}">Packages</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+              </ul>
+            </div>
+            <div class="col-lg-4 col-md-12">
+              <h4>Follow Us</h4>
+              <ul class="social-icons">
+                <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 text-center">
+              <p>&copy; 2024 TravelWithUs. All Rights Reserved.</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
+  </html>
