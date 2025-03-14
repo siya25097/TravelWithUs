@@ -36,9 +36,11 @@
 - **Authentication:** Django Sessions 🔐  
 
 ---
-
-## 📽️ Demo Video  
-🎥 [Watch the demo](https://github.com/siya25097/TravelWithUs/blob/main/freecompress-travel_project.mp4)
+## 📸 Screenshots  
+![Home Page](image/1.png)  
+![Destinations Page](Images/destinations.png)  
+![Packages Page](Images/packages.png)  
+![Contact Page](Images/contact.png)  
 
 
 ---
