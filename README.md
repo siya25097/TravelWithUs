@@ -34,16 +34,9 @@
 - **Frontend:** HTML, CSS, JavaScript, Bootstrap 🎨  
 - **Database:** MySQL 🛢  
 - **Authentication:** Django Sessions 🔐  
-
 ---
-## 📸 Screenshots  
-![Home Page](image/1.png)  
-![Destinations Page](Images/destinations.png)  
-![Packages Page](Images/packages.png)  
-![Contact Page](Images/contact.png)  
 
 
----
 
 🎯 Future Enhancements 🚀
 1️⃣ Online Payment Integration – Enable Stripe/PayPal for bookings.
@@ -53,3 +46,16 @@
 3️⃣ AI-Powered Recommendations – Personalized travel suggestions.
 
 4️⃣ Multi-language Support – Offer content in multiple languages.
+
+---
+## 📸 Screenshots  
+![](images/img1.png)  
+![](images/img2.png)  
+![](images/img3.png)  
+![](images/img4.png)  
+![](images/img5.png)  
+![](images/img6.png) 
+![](images/img7.png)  
+![](images/img8.png)  
+![](images/img10.png) 
+---
